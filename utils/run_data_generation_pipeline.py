@@ -3,7 +3,7 @@ This script runs the complete synthetic spectral sample generation pipeline
 with physical constraints for GEO satellite material unmixing.
 
 Steps:
-- Data sanity check and normalization
+- Data sanity check and preprocessing
 - Synthetic sample generation
 - Train/valid/test split
 """
@@ -14,7 +14,7 @@ from create_dataset_split import *
 
 
 if __name__ == "__main__":
-    # step 1: data sanity check and normalization
+    # step 1: data sanity check and preprocessing
     df = load_and_inspect_data("data/endmember_library_gtri_ggx.csv")
     material_cols = perform_sanity_checks(df)
     visualize_spectra(df, material_cols)
