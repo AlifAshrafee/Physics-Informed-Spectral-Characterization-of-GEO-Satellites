@@ -1,0 +1,1802 @@
+[
+  {
+    "sample_id": 10,
+    "active_materials": [
+      "solarcell",
+      "dunmore",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5830982935419308,
+      "dunmore": 0.2258434650903629,
+      "thermalbrightn": 0.1910582413677062,
+      "blackmli": 0.0,
+      "kaptonhn": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 23,
+    "active_materials": [
+      "solarcell",
+      "kaptonhn",
+      "kaptonws"
+    ],
+    "abundances": {
+      "solarcell": 0.5870257743138863,
+      "kaptonhn": 0.2383959952486983,
+      "kaptonws": 0.17457823043741558,
+      "blackmli": 0.0,
+      "dunmore": 0.0,
+      "thermalbrightn": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 25,
+    "active_materials": [
+      "solarcell",
+      "dunmore",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5857984318467863,
+      "dunmore": 0.2686616373476146,
+      "thermalbrightn": 0.14553993080559924,
+      "blackmli": 0.0,
+      "kaptonhn": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 59,
+    "active_materials": [
+      "solarcell",
+      "dunmore",
+      "kaptonws"
+    ],
+    "abundances": {
+      "solarcell": 0.5734276912948847,
+      "dunmore": 0.2659716502395591,
+      "kaptonws": 0.16060065846555627,
+      "blackmli": 0.0,
+      "kaptonhn": 0.0,
+      "thermalbrightn": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 66,
+    "active_materials": [
+      "solarcell",
+      "kaptonhn",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5458104139002979,
+      "kaptonhn": 0.27834632156076283,
+      "thermalbrightn": 0.17584326453893928,
+      "blackmli": 0.0,
+      "dunmore": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 67,
+    "active_materials": [
+      "solarcell",
+      "kaptonhn",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5858987911254381,
+      "kaptonhn": 0.2456310914006045,
+      "thermalbrightn": 0.16847011747395754,
+      "blackmli": 0.0,
+      "dunmore": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 78,
+    "active_materials": [
+      "solarcell",
+      "kaptonhn",
+      "kaptonws"
+    ],
+    "abundances": {
+      "solarcell": 0.5644477098971925,
+      "kaptonhn": 0.24832923056996564,
+      "kaptonws": 0.18722305953284188,
+      "blackmli": 0.0,
+      "dunmore": 0.0,
+      "thermalbrightn": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 107,
+    "active_materials": [
+      "solarcell",
+      "dunmore",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5383577755759623,
+      "dunmore": 0.29446831218212044,
+      "thermalbrightn": 0.16717391224191727,
+      "blackmli": 0.0,
+      "kaptonhn": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 137,
+    "active_materials": [
+      "solarcell",
+      "kaptonhn",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5800218445188596,
+      "kaptonhn": 0.25357712406185967,
+      "thermalbrightn": 0.16640103141928084,
+      "blackmli": 0.0,
+      "dunmore": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 158,
+    "active_materials": [
+      "solarcell",
+      "blackmli",
+      "kaptonws"
+    ],
+    "abundances": {
+      "solarcell": 0.5845546068994774,
+      "blackmli": 0.24433959673866512,
+      "kaptonws": 0.17110579636185752,
+      "kaptonhn": 0.0,
+      "dunmore": 0.0,
+      "thermalbrightn": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 168,
+    "active_materials": [
+      "solarcell",
+      "kaptonhn",
+      "kaptonws"
+    ],
+    "abundances": {
+      "solarcell": 0.5356915669039349,
+      "kaptonhn": 0.26457219224636813,
+      "kaptonws": 0.19973624084969702,
+      "blackmli": 0.0,
+      "dunmore": 0.0,
+      "thermalbrightn": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 174,
+    "active_materials": [
+      "solarcell",
+      "dunmore",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5104440934068661,
+      "dunmore": 0.2960285762339065,
+      "thermalbrightn": 0.19352733035922734,
+      "blackmli": 0.0,
+      "kaptonhn": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 184,
+    "active_materials": [
+      "solarcell",
+      "blackmli",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5917359263700462,
+      "blackmli": 0.21148977383409018,
+      "thermalbrightn": 0.19677429979586358,
+      "kaptonhn": 0.0,
+      "dunmore": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 199,
+    "active_materials": [
+      "solarcell",
+      "kaptonhn",
+      "kaptonws"
+    ],
+    "abundances": {
+      "solarcell": 0.5868769423891224,
+      "kaptonhn": 0.2814930553061883,
+      "kaptonws": 0.1316300023046894,
+      "blackmli": 0.0,
+      "dunmore": 0.0,
+      "thermalbrightn": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 209,
+    "active_materials": [
+      "solarcell",
+      "dunmore",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.589734662836407,
+      "dunmore": 0.24002027564524142,
+      "thermalbrightn": 0.17024506151835153,
+      "blackmli": 0.0,
+      "kaptonhn": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 221,
+    "active_materials": [
+      "solarcell",
+      "kaptonhn",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5730849841085613,
+      "kaptonhn": 0.24404101529298172,
+      "thermalbrightn": 0.18287400059845677,
+      "blackmli": 0.0,
+      "dunmore": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 235,
+    "active_materials": [
+      "solarcell",
+      "dunmore",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5611883506015488,
+      "dunmore": 0.2882834525752745,
+      "thermalbrightn": 0.15052819682317672,
+      "blackmli": 0.0,
+      "kaptonhn": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 244,
+    "active_materials": [
+      "solarcell",
+      "kaptonhn",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5924714955377541,
+      "kaptonhn": 0.22522597092551613,
+      "thermalbrightn": 0.18230253353672973,
+      "blackmli": 0.0,
+      "dunmore": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 254,
+    "active_materials": [
+      "solarcell",
+      "kaptonhn",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.597576842930089,
+      "kaptonhn": 0.29759570535920693,
+      "thermalbrightn": 0.1048274517107041,
+      "blackmli": 0.0,
+      "dunmore": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 256,
+    "active_materials": [
+      "solarcell",
+      "blackmli",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5950281159393488,
+      "blackmli": 0.24387795401800835,
+      "thermalbrightn": 0.16109393004264272,
+      "kaptonhn": 0.0,
+      "dunmore": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 260,
+    "active_materials": [
+      "solarcell",
+      "dunmore",
+      "kaptonws"
+    ],
+    "abundances": {
+      "solarcell": 0.5840078322355683,
+      "dunmore": 0.25482663411294887,
+      "kaptonws": 0.16116553365148287,
+      "blackmli": 0.0,
+      "kaptonhn": 0.0,
+      "thermalbrightn": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 261,
+    "active_materials": [
+      "solarcell",
+      "kaptonhn",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5767457235063733,
+      "kaptonhn": 0.24180786438822122,
+      "thermalbrightn": 0.1814464121054055,
+      "blackmli": 0.0,
+      "dunmore": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 292,
+    "active_materials": [
+      "solarcell",
+      "blackmli",
+      "kaptonws"
+    ],
+    "abundances": {
+      "solarcell": 0.5801559192116809,
+      "blackmli": 0.2389037845946272,
+      "kaptonws": 0.1809402961936918,
+      "kaptonhn": 0.0,
+      "dunmore": 0.0,
+      "thermalbrightn": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 298,
+    "active_materials": [
+      "solarcell",
+      "dunmore",
+      "kaptonws"
+    ],
+    "abundances": {
+      "solarcell": 0.5887607741821614,
+      "dunmore": 0.23010833224722338,
+      "kaptonws": 0.18113089357061524,
+      "blackmli": 0.0,
+      "kaptonhn": 0.0,
+      "thermalbrightn": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 299,
+    "active_materials": [
+      "solarcell",
+      "blackmli",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5749052819809657,
+      "blackmli": 0.24648327159045794,
+      "thermalbrightn": 0.1786114464285763,
+      "kaptonhn": 0.0,
+      "dunmore": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 309,
+    "active_materials": [
+      "solarcell",
+      "blackmli",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5700573258030286,
+      "blackmli": 0.25140401430058784,
+      "thermalbrightn": 0.17853865989638348,
+      "kaptonhn": 0.0,
+      "dunmore": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 314,
+    "active_materials": [
+      "solarcell",
+      "blackmli",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5854101356899825,
+      "blackmli": 0.21567747360493703,
+      "thermalbrightn": 0.19891239070508054,
+      "kaptonhn": 0.0,
+      "dunmore": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 321,
+    "active_materials": [
+      "solarcell",
+      "dunmore",
+      "kaptonws"
+    ],
+    "abundances": {
+      "solarcell": 0.5841547140073052,
+      "dunmore": 0.2740693659265089,
+      "kaptonws": 0.14177592006618583,
+      "blackmli": 0.0,
+      "kaptonhn": 0.0,
+      "thermalbrightn": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 327,
+    "active_materials": [
+      "solarcell",
+      "blackmli",
+      "kaptonws"
+    ],
+    "abundances": {
+      "solarcell": 0.5287076495641915,
+      "blackmli": 0.2991579701479533,
+      "kaptonws": 0.17213438028785533,
+      "kaptonhn": 0.0,
+      "dunmore": 0.0,
+      "thermalbrightn": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 328,
+    "active_materials": [
+      "solarcell",
+      "blackmli",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5727809118870061,
+      "blackmli": 0.26541310927533507,
+      "thermalbrightn": 0.16180597883765882,
+      "kaptonhn": 0.0,
+      "dunmore": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 332,
+    "active_materials": [
+      "solarcell",
+      "dunmore",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5562471557772787,
+      "dunmore": 0.2689966509287952,
+      "thermalbrightn": 0.17475619329392617,
+      "blackmli": 0.0,
+      "kaptonhn": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 363,
+    "active_materials": [
+      "solarcell",
+      "kaptonhn",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5580568862432472,
+      "kaptonhn": 0.277818931454157,
+      "thermalbrightn": 0.16412418230259573,
+      "blackmli": 0.0,
+      "dunmore": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 370,
+    "active_materials": [
+      "solarcell",
+      "blackmli",
+      "kaptonws"
+    ],
+    "abundances": {
+      "solarcell": 0.5834756094182144,
+      "blackmli": 0.23664589677367917,
+      "kaptonws": 0.17987849380810636,
+      "kaptonhn": 0.0,
+      "dunmore": 0.0,
+      "thermalbrightn": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 411,
+    "active_materials": [
+      "solarcell",
+      "kaptonhn",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5677860554219115,
+      "kaptonhn": 0.23478377063452624,
+      "thermalbrightn": 0.19743017394356221,
+      "blackmli": 0.0,
+      "dunmore": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 425,
+    "active_materials": [
+      "solarcell",
+      "blackmli",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5582218446054583,
+      "blackmli": 0.2775853473561687,
+      "thermalbrightn": 0.16419280803837305,
+      "kaptonhn": 0.0,
+      "dunmore": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 429,
+    "active_materials": [
+      "solarcell",
+      "dunmore",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.541313443967488,
+      "dunmore": 0.28668424782889784,
+      "thermalbrightn": 0.17200230820361426,
+      "blackmli": 0.0,
+      "kaptonhn": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 439,
+    "active_materials": [
+      "solarcell",
+      "blackmli",
+      "kaptonws"
+    ],
+    "abundances": {
+      "solarcell": 0.5931360849239856,
+      "blackmli": 0.27341175109974625,
+      "kaptonws": 0.1334521639762681,
+      "kaptonhn": 0.0,
+      "dunmore": 0.0,
+      "thermalbrightn": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 451,
+    "active_materials": [
+      "solarcell",
+      "kaptonhn",
+      "kaptonws"
+    ],
+    "abundances": {
+      "solarcell": 0.5994034284292288,
+      "kaptonhn": 0.23453646643226905,
+      "kaptonws": 0.16606010513850217,
+      "blackmli": 0.0,
+      "dunmore": 0.0,
+      "thermalbrightn": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 462,
+    "active_materials": [
+      "solarcell",
+      "dunmore",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5541822217632075,
+      "dunmore": 0.2882276136826775,
+      "thermalbrightn": 0.15759016455411504,
+      "blackmli": 0.0,
+      "kaptonhn": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 479,
+    "active_materials": [
+      "solarcell",
+      "dunmore",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5367624991117728,
+      "dunmore": 0.27761745441338564,
+      "thermalbrightn": 0.18562004647484148,
+      "blackmli": 0.0,
+      "kaptonhn": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 493,
+    "active_materials": [
+      "solarcell",
+      "dunmore",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5657011076490127,
+      "dunmore": 0.27132139806975325,
+      "thermalbrightn": 0.16297749428123404,
+      "blackmli": 0.0,
+      "kaptonhn": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 494,
+    "active_materials": [
+      "solarcell",
+      "dunmore",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5918503067393883,
+      "dunmore": 0.22353858376429095,
+      "thermalbrightn": 0.18461110949632067,
+      "blackmli": 0.0,
+      "kaptonhn": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 513,
+    "active_materials": [
+      "solarcell",
+      "dunmore",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5992989812734161,
+      "dunmore": 0.26116263174474436,
+      "thermalbrightn": 0.1395383869818396,
+      "blackmli": 0.0,
+      "kaptonhn": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 521,
+    "active_materials": [
+      "solarcell",
+      "kaptonhn",
+      "kaptonws"
+    ],
+    "abundances": {
+      "solarcell": 0.555969257956862,
+      "kaptonhn": 0.2544914624505158,
+      "kaptonws": 0.18953927959262218,
+      "blackmli": 0.0,
+      "dunmore": 0.0,
+      "thermalbrightn": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 522,
+    "active_materials": [
+      "solarcell",
+      "kaptonhn",
+      "kaptonws"
+    ],
+    "abundances": {
+      "solarcell": 0.5855692818074765,
+      "kaptonhn": 0.2886102121517774,
+      "kaptonws": 0.1258205060407461,
+      "blackmli": 0.0,
+      "dunmore": 0.0,
+      "thermalbrightn": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 526,
+    "active_materials": [
+      "solarcell",
+      "blackmli",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5373057242215497,
+      "blackmli": 0.28637951107999154,
+      "thermalbrightn": 0.1763147646984589,
+      "kaptonhn": 0.0,
+      "dunmore": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 527,
+    "active_materials": [
+      "solarcell",
+      "kaptonhn",
+      "kaptonws"
+    ],
+    "abundances": {
+      "solarcell": 0.5169389901919886,
+      "kaptonhn": 0.2877603245335571,
+      "kaptonws": 0.19530068527445424,
+      "blackmli": 0.0,
+      "dunmore": 0.0,
+      "thermalbrightn": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 528,
+    "active_materials": [
+      "solarcell",
+      "kaptonhn",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5889540793169832,
+      "kaptonhn": 0.2634809585053094,
+      "thermalbrightn": 0.14756496217770748,
+      "blackmli": 0.0,
+      "dunmore": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 529,
+    "active_materials": [
+      "solarcell",
+      "kaptonhn",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5869568138197985,
+      "kaptonhn": 0.25727028468066065,
+      "thermalbrightn": 0.15577290149954082,
+      "blackmli": 0.0,
+      "dunmore": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 542,
+    "active_materials": [
+      "solarcell",
+      "blackmli",
+      "kaptonws"
+    ],
+    "abundances": {
+      "solarcell": 0.5940854196558824,
+      "blackmli": 0.27920153406048265,
+      "kaptonws": 0.1267130462836351,
+      "kaptonhn": 0.0,
+      "dunmore": 0.0,
+      "thermalbrightn": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 549,
+    "active_materials": [
+      "solarcell",
+      "kaptonhn",
+      "kaptonws"
+    ],
+    "abundances": {
+      "solarcell": 0.5947162020001586,
+      "kaptonhn": 0.250011238858355,
+      "kaptonws": 0.15527255914148633,
+      "blackmli": 0.0,
+      "dunmore": 0.0,
+      "thermalbrightn": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 554,
+    "active_materials": [
+      "solarcell",
+      "kaptonhn",
+      "kaptonws"
+    ],
+    "abundances": {
+      "solarcell": 0.5709685616957626,
+      "kaptonhn": 0.2926750852207755,
+      "kaptonws": 0.13635635308346203,
+      "blackmli": 0.0,
+      "dunmore": 0.0,
+      "thermalbrightn": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 570,
+    "active_materials": [
+      "solarcell",
+      "blackmli",
+      "kaptonws"
+    ],
+    "abundances": {
+      "solarcell": 0.583709305617103,
+      "blackmli": 0.2729634136332805,
+      "kaptonws": 0.14332728074961654,
+      "kaptonhn": 0.0,
+      "dunmore": 0.0,
+      "thermalbrightn": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 578,
+    "active_materials": [
+      "solarcell",
+      "dunmore",
+      "kaptonws"
+    ],
+    "abundances": {
+      "solarcell": 0.5420028492267503,
+      "dunmore": 0.2700049850866905,
+      "kaptonws": 0.1879921656865592,
+      "blackmli": 0.0,
+      "kaptonhn": 0.0,
+      "thermalbrightn": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 584,
+    "active_materials": [
+      "solarcell",
+      "blackmli",
+      "kaptonws"
+    ],
+    "abundances": {
+      "solarcell": 0.5791112940782149,
+      "blackmli": 0.2914544792067183,
+      "kaptonws": 0.12943422671506677,
+      "kaptonhn": 0.0,
+      "dunmore": 0.0,
+      "thermalbrightn": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 590,
+    "active_materials": [
+      "solarcell",
+      "dunmore",
+      "kaptonws"
+    ],
+    "abundances": {
+      "solarcell": 0.5416225917995128,
+      "dunmore": 0.2970292128039525,
+      "kaptonws": 0.16134819539653464,
+      "blackmli": 0.0,
+      "kaptonhn": 0.0,
+      "thermalbrightn": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 595,
+    "active_materials": [
+      "solarcell",
+      "dunmore",
+      "kaptonws"
+    ],
+    "abundances": {
+      "solarcell": 0.5501981978817918,
+      "dunmore": 0.2857969290157456,
+      "kaptonws": 0.16400487310246248,
+      "blackmli": 0.0,
+      "kaptonhn": 0.0,
+      "thermalbrightn": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 599,
+    "active_materials": [
+      "solarcell",
+      "blackmli",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5744921382571961,
+      "blackmli": 0.2928321566751763,
+      "thermalbrightn": 0.1326757050676274,
+      "kaptonhn": 0.0,
+      "dunmore": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 601,
+    "active_materials": [
+      "solarcell",
+      "kaptonhn",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5421208601638655,
+      "kaptonhn": 0.29900507078520566,
+      "thermalbrightn": 0.1588740690509288,
+      "blackmli": 0.0,
+      "dunmore": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 604,
+    "active_materials": [
+      "solarcell",
+      "blackmli",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5784482719494054,
+      "blackmli": 0.2964897181452575,
+      "thermalbrightn": 0.1250620099053371,
+      "kaptonhn": 0.0,
+      "dunmore": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 613,
+    "active_materials": [
+      "solarcell",
+      "dunmore",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.563411334286429,
+      "dunmore": 0.2563852962402843,
+      "thermalbrightn": 0.18020336947328683,
+      "blackmli": 0.0,
+      "kaptonhn": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 621,
+    "active_materials": [
+      "solarcell",
+      "kaptonhn",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5894641384770817,
+      "kaptonhn": 0.23636466304116874,
+      "thermalbrightn": 0.1741711984817497,
+      "blackmli": 0.0,
+      "dunmore": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 644,
+    "active_materials": [
+      "solarcell",
+      "blackmli",
+      "kaptonws"
+    ],
+    "abundances": {
+      "solarcell": 0.5820595708129261,
+      "blackmli": 0.2564291839524819,
+      "kaptonws": 0.161511245234592,
+      "kaptonhn": 0.0,
+      "dunmore": 0.0,
+      "thermalbrightn": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 650,
+    "active_materials": [
+      "solarcell",
+      "blackmli",
+      "kaptonws"
+    ],
+    "abundances": {
+      "solarcell": 0.5820341420252009,
+      "blackmli": 0.2880982534157893,
+      "kaptonws": 0.12986760455900995,
+      "kaptonhn": 0.0,
+      "dunmore": 0.0,
+      "thermalbrightn": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 656,
+    "active_materials": [
+      "solarcell",
+      "dunmore",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5616232254610162,
+      "dunmore": 0.2845733047736715,
+      "thermalbrightn": 0.15380346976531234,
+      "blackmli": 0.0,
+      "kaptonhn": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 660,
+    "active_materials": [
+      "solarcell",
+      "dunmore",
+      "kaptonws"
+    ],
+    "abundances": {
+      "solarcell": 0.575341403046,
+      "dunmore": 0.2834844308890694,
+      "kaptonws": 0.14117416606493066,
+      "blackmli": 0.0,
+      "kaptonhn": 0.0,
+      "thermalbrightn": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 670,
+    "active_materials": [
+      "solarcell",
+      "blackmli",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5942432590011458,
+      "blackmli": 0.2211435532529959,
+      "thermalbrightn": 0.18461318774585833,
+      "kaptonhn": 0.0,
+      "dunmore": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 677,
+    "active_materials": [
+      "solarcell",
+      "blackmli",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5650054874434677,
+      "blackmli": 0.23607660040223238,
+      "thermalbrightn": 0.1989179121543,
+      "kaptonhn": 0.0,
+      "dunmore": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 679,
+    "active_materials": [
+      "solarcell",
+      "kaptonhn",
+      "kaptonws"
+    ],
+    "abundances": {
+      "solarcell": 0.5912673717558047,
+      "kaptonhn": 0.2334153194597627,
+      "kaptonws": 0.17531730878443255,
+      "blackmli": 0.0,
+      "dunmore": 0.0,
+      "thermalbrightn": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 689,
+    "active_materials": [
+      "solarcell",
+      "blackmli",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5859040999273524,
+      "blackmli": 0.24551067515810385,
+      "thermalbrightn": 0.1685852249145438,
+      "kaptonhn": 0.0,
+      "dunmore": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 697,
+    "active_materials": [
+      "solarcell",
+      "kaptonhn",
+      "kaptonws"
+    ],
+    "abundances": {
+      "solarcell": 0.5755457869186983,
+      "kaptonhn": 0.25275926188705866,
+      "kaptonws": 0.171694951194243,
+      "blackmli": 0.0,
+      "dunmore": 0.0,
+      "thermalbrightn": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 714,
+    "active_materials": [
+      "solarcell",
+      "dunmore",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5597946409621729,
+      "dunmore": 0.26090840330567394,
+      "thermalbrightn": 0.1792969557321531,
+      "blackmli": 0.0,
+      "kaptonhn": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 721,
+    "active_materials": [
+      "solarcell",
+      "dunmore",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5513164717814344,
+      "dunmore": 0.29427046376091476,
+      "thermalbrightn": 0.15441306445765088,
+      "blackmli": 0.0,
+      "kaptonhn": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 737,
+    "active_materials": [
+      "solarcell",
+      "kaptonhn",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5758970751689627,
+      "kaptonhn": 0.2271765833371375,
+      "thermalbrightn": 0.1969263414938998,
+      "blackmli": 0.0,
+      "dunmore": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 753,
+    "active_materials": [
+      "solarcell",
+      "kaptonhn",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5615542652811595,
+      "kaptonhn": 0.25374185336730065,
+      "thermalbrightn": 0.1847038813515397,
+      "blackmli": 0.0,
+      "dunmore": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 787,
+    "active_materials": [
+      "solarcell",
+      "dunmore",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5745902382718054,
+      "dunmore": 0.22881193273041903,
+      "thermalbrightn": 0.19659782899777564,
+      "blackmli": 0.0,
+      "kaptonhn": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 800,
+    "active_materials": [
+      "solarcell",
+      "dunmore",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.588183947054439,
+      "dunmore": 0.2950998766391308,
+      "thermalbrightn": 0.11671617630643015,
+      "blackmli": 0.0,
+      "kaptonhn": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 802,
+    "active_materials": [
+      "solarcell",
+      "kaptonhn",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5786053430990299,
+      "kaptonhn": 0.26689842866069086,
+      "thermalbrightn": 0.15449622824027925,
+      "blackmli": 0.0,
+      "dunmore": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 810,
+    "active_materials": [
+      "solarcell",
+      "dunmore",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5559343175361161,
+      "dunmore": 0.2920104773467206,
+      "thermalbrightn": 0.1520552051171633,
+      "blackmli": 0.0,
+      "kaptonhn": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 811,
+    "active_materials": [
+      "solarcell",
+      "kaptonhn",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5638117241453516,
+      "kaptonhn": 0.2913860344171514,
+      "thermalbrightn": 0.144802241437497,
+      "blackmli": 0.0,
+      "dunmore": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 820,
+    "active_materials": [
+      "solarcell",
+      "kaptonhn",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5626521172633762,
+      "kaptonhn": 0.28713292758948994,
+      "thermalbrightn": 0.1502149551471339,
+      "blackmli": 0.0,
+      "dunmore": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 826,
+    "active_materials": [
+      "solarcell",
+      "kaptonhn",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5795724717265787,
+      "kaptonhn": 0.2409318142150831,
+      "thermalbrightn": 0.1794957140583382,
+      "blackmli": 0.0,
+      "dunmore": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 837,
+    "active_materials": [
+      "solarcell",
+      "blackmli",
+      "kaptonws"
+    ],
+    "abundances": {
+      "solarcell": 0.5221740751883216,
+      "blackmli": 0.2928181482026335,
+      "kaptonws": 0.18500777660904472,
+      "kaptonhn": 0.0,
+      "dunmore": 0.0,
+      "thermalbrightn": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 845,
+    "active_materials": [
+      "solarcell",
+      "kaptonhn",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5857861919723306,
+      "kaptonhn": 0.272954143979148,
+      "thermalbrightn": 0.14125966404852128,
+      "blackmli": 0.0,
+      "dunmore": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 849,
+    "active_materials": [
+      "solarcell",
+      "blackmli",
+      "kaptonws"
+    ],
+    "abundances": {
+      "solarcell": 0.5372133426511971,
+      "blackmli": 0.27634197476203654,
+      "kaptonws": 0.18644468258676627,
+      "kaptonhn": 0.0,
+      "dunmore": 0.0,
+      "thermalbrightn": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 859,
+    "active_materials": [
+      "solarcell",
+      "kaptonhn",
+      "kaptonws"
+    ],
+    "abundances": {
+      "solarcell": 0.5811735775818843,
+      "kaptonhn": 0.28373291919178967,
+      "kaptonws": 0.13509350322632618,
+      "blackmli": 0.0,
+      "dunmore": 0.0,
+      "thermalbrightn": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 883,
+    "active_materials": [
+      "solarcell",
+      "blackmli",
+      "kaptonws"
+    ],
+    "abundances": {
+      "solarcell": 0.5483276974584317,
+      "blackmli": 0.25820617569597637,
+      "kaptonws": 0.19346612684559192,
+      "kaptonhn": 0.0,
+      "dunmore": 0.0,
+      "thermalbrightn": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 893,
+    "active_materials": [
+      "solarcell",
+      "dunmore",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5347913198124844,
+      "dunmore": 0.28685626783758256,
+      "thermalbrightn": 0.17835241234993307,
+      "blackmli": 0.0,
+      "kaptonhn": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 902,
+    "active_materials": [
+      "solarcell",
+      "dunmore",
+      "kaptonws"
+    ],
+    "abundances": {
+      "solarcell": 0.5769541261004966,
+      "dunmore": 0.2700496175777921,
+      "kaptonws": 0.15299625632171132,
+      "blackmli": 0.0,
+      "kaptonhn": 0.0,
+      "thermalbrightn": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 914,
+    "active_materials": [
+      "solarcell",
+      "kaptonhn",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5753223787433214,
+      "kaptonhn": 0.2655322189218024,
+      "thermalbrightn": 0.1591454023348763,
+      "blackmli": 0.0,
+      "dunmore": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 917,
+    "active_materials": [
+      "solarcell",
+      "kaptonhn",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.520525597260839,
+      "kaptonhn": 0.2914535807679489,
+      "thermalbrightn": 0.18802082197121195,
+      "blackmli": 0.0,
+      "dunmore": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 936,
+    "active_materials": [
+      "solarcell",
+      "dunmore",
+      "kaptonws"
+    ],
+    "abundances": {
+      "solarcell": 0.5743210497808778,
+      "dunmore": 0.2775229000061397,
+      "kaptonws": 0.14815605021298256,
+      "blackmli": 0.0,
+      "kaptonhn": 0.0,
+      "thermalbrightn": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 938,
+    "active_materials": [
+      "solarcell",
+      "dunmore",
+      "kaptonws"
+    ],
+    "abundances": {
+      "solarcell": 0.5984200884076051,
+      "dunmore": 0.2513522578807969,
+      "kaptonws": 0.15022765371159802,
+      "blackmli": 0.0,
+      "kaptonhn": 0.0,
+      "thermalbrightn": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 941,
+    "active_materials": [
+      "solarcell",
+      "dunmore",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5912525049256689,
+      "dunmore": 0.2685649079752643,
+      "thermalbrightn": 0.1401825870990667,
+      "blackmli": 0.0,
+      "kaptonhn": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 942,
+    "active_materials": [
+      "solarcell",
+      "kaptonhn",
+      "kaptonws"
+    ],
+    "abundances": {
+      "solarcell": 0.5536744042769421,
+      "kaptonhn": 0.2838983725451582,
+      "kaptonws": 0.16242722317789965,
+      "blackmli": 0.0,
+      "dunmore": 0.0,
+      "thermalbrightn": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 959,
+    "active_materials": [
+      "solarcell",
+      "dunmore",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5734987858585936,
+      "dunmore": 0.2633978383502436,
+      "thermalbrightn": 0.16310337579116277,
+      "blackmli": 0.0,
+      "kaptonhn": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 973,
+    "active_materials": [
+      "solarcell",
+      "blackmli",
+      "kaptonws"
+    ],
+    "abundances": {
+      "solarcell": 0.5749115731672528,
+      "blackmli": 0.27601675425866673,
+      "kaptonws": 0.14907167257408047,
+      "kaptonhn": 0.0,
+      "dunmore": 0.0,
+      "thermalbrightn": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 974,
+    "active_materials": [
+      "solarcell",
+      "dunmore",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.5575108306099712,
+      "dunmore": 0.29630268455023234,
+      "thermalbrightn": 0.14618648483979643,
+      "blackmli": 0.0,
+      "kaptonhn": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 985,
+    "active_materials": [
+      "solarcell",
+      "kaptonhn",
+      "kaptonws"
+    ],
+    "abundances": {
+      "solarcell": 0.5703161290271479,
+      "kaptonhn": 0.2627174898403868,
+      "kaptonws": 0.16696638113246529,
+      "blackmli": 0.0,
+      "dunmore": 0.0,
+      "thermalbrightn": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  },
+  {
+    "sample_id": 995,
+    "active_materials": [
+      "solarcell",
+      "kaptonhn",
+      "thermalbrightn"
+    ],
+    "abundances": {
+      "solarcell": 0.578811791085074,
+      "kaptonhn": 0.2478486140449571,
+      "thermalbrightn": 0.173339594869969,
+      "blackmli": 0.0,
+      "dunmore": 0.0,
+      "kaptonws": 0.0
+    },
+    "noise_added": true,
+    "noise_level": 0.02
+  }
+]
