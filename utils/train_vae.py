@@ -9,7 +9,7 @@ import json
 from pathlib import Path
 import matplotlib.pyplot as plt
 import seaborn as sns
-from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+from sklearn.metrics import mean_absolute_error, mean_squared_error
 from models.vae import PhysicsConstrainedVAE
 
 
@@ -107,7 +107,7 @@ def validate_epoch(model, val_loader, device, alpha=1.0, beta=1.0, gamma=1.0):
 
             recon_spectra, abundances_pred, mu, log_var = model(spectra)
 
-            loss, loss_dict = vae_loss(recon_spectra, spectra, abundances_pred, abundances_true,
+            _, loss_dict = vae_loss(recon_spectra, spectra, abundances_pred, abundances_true,
                                        mu, log_var, alpha=alpha, beta=beta, gamma=gamma)
 
             batch_size = len(spectra)
@@ -161,11 +161,9 @@ def evaluate_model(model, test_loader, device, material_names):
     results = {
         'abundance_mae': mean_absolute_error(abundances_true, abundances_pred),
         'abundance_rmse': np.sqrt(mean_squared_error(abundances_true, abundances_pred)),
-        'abundance_r2': r2_score(abundances_true, abundances_pred),
 
         'spectral_mse': mean_squared_error(spectra_true, spectra_pred),
         'spectral_rmse': np.sqrt(mean_squared_error(spectra_true, spectra_pred)),
-        'spectral_r2': r2_score(spectra_true, spectra_pred),
 
         'per_material': {}
     }
@@ -174,7 +172,6 @@ def evaluate_model(model, test_loader, device, material_names):
         results['per_material'][material] = {
             'mae': mean_absolute_error(abundances_true[:, i], abundances_pred[:, i]),
             'rmse': np.sqrt(mean_squared_error(abundances_true[:, i], abundances_pred[:, i])),
-            'r2': r2_score(abundances_true[:, i], abundances_pred[:, i])
         }
 
     sam = spectral_angle_mapper(spectra_true, spectra_pred)
@@ -265,11 +262,10 @@ def plot_test_results(results, material_names, wavelengths, save_dir):
 
         mae = results['per_material'][material]['mae']
         rmse = results['per_material'][material]['rmse']
-        r2 = results['per_material'][material]['r2']
 
         ax.set_xlabel('True Abundance')
         ax.set_ylabel('Predicted Abundance')
-        ax.set_title(f'{material}\nMAE={mae:.4f}, RMSE={rmse:.4f}, R²={r2:.4f}')
+        ax.set_title(f'{material}\nMAE={mae:.4f}, RMSE={rmse:.4f}')
         ax.grid(True, alpha=0.3)
 
     plt.tight_layout()
@@ -330,17 +326,18 @@ def plot_test_results(results, material_names, wavelengths, save_dir):
 # Training Pipeline
 
 def train(train_spectra, train_abundances, val_spectra, val_abundances, test_spectra, test_abundances, 
-          endmembers, results_dir, latent_dim, batch_size, epochs, lr, alpha, beta, gamma, 
-          patience=20, seed=42, device=None):
-
+          endmembers, latent_dim, batch_size, epochs, lr, alpha, beta, gamma, 
+          patience=20, seed=42, results_dir=None, device=None):
+    print(f"Alpha: {alpha}, Beta: {beta}, Gamma: {gamma}")
     torch.manual_seed(seed)
     np.random.seed(seed)
 
     if device is None:
         device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-    results_dir = Path(results_dir)
-    results_dir.mkdir(exist_ok=True, parents=True)
+    if results_dir is not None:
+        results_dir = Path(results_dir)
+        results_dir.mkdir(exist_ok=True, parents=True)
 
     train_dataset = SpectralDataset(train_spectra, train_abundances)
     val_dataset = SpectralDataset(val_spectra, val_abundances)
@@ -396,10 +393,10 @@ def train(train_spectra, train_abundances, val_spectra, val_abundances, test_spe
         history['val_abundance'].append(val_components['abundance'])
 
         print(f"Epoch {epoch+1}/{epochs}")
-        print(f"Training:\n"
-              f"Total Loss: {train_loss:.4f}, Reconstruction Loss: {train_components['recon']:.4f},\n"
+        print(f"Training => "
+              f"Total Loss: {train_loss:.4f}, Reconstruction Loss: {train_components['recon']:.4f}, "
               f"KLD Loss: {train_components['kld']:.4f}, Abundance Loss: {train_components['abundance']:.4f}")
-        print(f"Validation:\n"
+        print(f"Validation => "
               f"Total Loss {val_loss:.4f}, Reconstruction Loss: {val_components['recon']:.4f}, "
               f"KLD Loss: {val_components['kld']:.4f}, Abundance Loss: {val_components['abundance']:.4f}")
 
@@ -418,10 +415,12 @@ def train(train_spectra, train_abundances, val_spectra, val_abundances, test_spe
             break
 
     print(f"Best validation loss: {best_val_loss:.4f}")
-    with open(results_dir / 'training_history.json', 'w') as f:
-        json.dump(history, f, indent=2)
 
-    plot_training_history(history, results_dir / 'training_curves.png')
+    if results_dir is not None:
+        with open(results_dir / 'training_history.json', 'w') as f:
+            json.dump(history, f, indent=2)
+
+        plot_training_history(history, results_dir / 'training_curves.png')
 
     model.load_state_dict({k: v.to(device) for k, v in best_model_state.items()})
     model.eval()
@@ -430,20 +429,21 @@ def train(train_spectra, train_abundances, val_spectra, val_abundances, test_spe
     results_log = {
         'abundance_mae': test_results['abundance_mae'],
         'abundance_rmse': test_results['abundance_rmse'],
-        'abundance_r2': test_results['abundance_r2'],
         'spectral_mse': test_results['spectral_mse'],
         'spectral_rmse': test_results['spectral_rmse'],
-        'spectral_r2': test_results['spectral_r2'],
         'sam_mean': test_results['sam_mean'],
         'sam_std': test_results['sam_std'],
         'sam_median': test_results['sam_median'],
         'per_material': test_results['per_material']
     }
 
-    with open(results_dir / 'test_results.json', 'w') as f:
-        json.dump(results_log, f, indent=2)
+    if results_dir is not None:
+        with open(results_dir / 'test_results.json', 'w') as f:
+            json.dump(results_log, f, indent=2)
 
-    plot_test_results(test_results, material_names, wavelengths, results_dir)
+        plot_test_results(test_results, material_names, wavelengths, results_dir)
+
+    return results_log
 
 
 if __name__ == "__main__":
@@ -457,7 +457,6 @@ if __name__ == "__main__":
     parser.add_argument('--test-spectra', default='data/synthetic_dataset_splits/test_spectra.csv')
     parser.add_argument('--test-abundances', default='data/synthetic_dataset_splits/test_abundances.csv')
     parser.add_argument('--endmembers', default='data/endmember_library_clipped.csv')
-    parser.add_argument('--results-dir', default='results/vae')
 
     # model params
     parser.add_argument('--latent-dim', type=int, default=32)
@@ -474,10 +473,10 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    train(train_spectra=args.train_spectra, train_abundances=args.train_abundances,
-          val_spectra=args.val_spectra, val_abundances=args.val_abundances,
-          test_spectra=args.test_spectra, test_abundances=args.test_abundances,
-          endmembers=args.endmembers, results_dir=args.results_dir, latent_dim=args.latent_dim,
-          batch_size=args.batch_size, epochs=args.epochs, lr=args.lr,
-          alpha=args.alpha, beta=args.beta, gamma=args.gamma,
-          patience=args.patience, seed=args.seed)
+    results = train(train_spectra=args.train_spectra, train_abundances=args.train_abundances,
+                    val_spectra=args.val_spectra, val_abundances=args.val_abundances,
+                    test_spectra=args.test_spectra, test_abundances=args.test_abundances,
+                    endmembers=args.endmembers, latent_dim=args.latent_dim,
+                    batch_size=args.batch_size, epochs=args.epochs, lr=args.lr,
+                    alpha=args.alpha, beta=args.beta, gamma=args.gamma,
+                    patience=args.patience, seed=args.seed)
