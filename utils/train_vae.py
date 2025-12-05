@@ -39,24 +39,44 @@ class SpectralDataset(Dataset):
 # Loss Function
 
 def vae_loss(recon_spectrum, input_spectrum, abundances_pred, abundances_true, 
-             mu, log_var, alpha=1.0, beta=1.0, gamma=1.0):
+             mu, log_var, group_info, alpha=1.0, beta=0.1, gamma=1.0, delta=1.0):
     """    
-    Loss = α·L_recon + β·L_KL + γ·L_abundance
+    Loss = α·L_recon + β·L_KL + γ·L_group + δ·L_categorical
     """
     # reconstruction loss = spectral MSE
     recon_loss = F.mse_loss(recon_spectrum, input_spectrum, reduction='mean')
+
     # KLD(q(z|x) || N(0,I)) = -0.5*Σ(1+log(σ²)-μ²-σ²)
     kld_loss = -0.5 * torch.mean(torch.sum(1 + log_var - mu.pow(2) - log_var.exp(), dim=1))
-    # abundance supervision loss
-    abundance_loss = F.mse_loss(abundances_pred, abundances_true, reduction='mean')
 
-    total_loss = alpha * recon_loss + beta * kld_loss + gamma * abundance_loss
+    # group fraction supervision loss: [solar, mli, white]
+    group_true = torch.stack([
+        abundances_true[:, 0],  # solar cell
+        abundances_true[:, 1:4].sum(dim=1),  # MLI materials
+        abundances_true[:, 4:6].sum(dim=1),  # white materials
+    ], dim=1)
+    group_loss = F.mse_loss(group_info['group_fracs'], group_true, reduction='mean')
+
+    # categorical supervision for within-group selection
+    mli_labels = torch.argmax(abundances_true[:, 1:4], dim=1)
+    white_labels = torch.argmax(abundances_true[:, 4:6], dim=1)
+
+    categorical_loss = (F.cross_entropy(group_info['mli_logits'], mli_labels) +
+                        F.cross_entropy(group_info['white_logits'], white_labels))
+
+    total_loss = (
+        alpha * recon_loss + 
+        beta * kld_loss + 
+        gamma * group_loss + 
+        delta * categorical_loss
+        )
 
     loss_dict = {
         'total': total_loss.item(),
         'recon': recon_loss.item(),
         'kld': kld_loss.item(),
-        'abundance': abundance_loss.item()
+        'group': group_loss.item(),
+        'categorical': categorical_loss.item(),
     }
 
     return total_loss, loss_dict
@@ -64,19 +84,19 @@ def vae_loss(recon_spectrum, input_spectrum, abundances_pred, abundances_true,
 
 # Training Functions
 
-def train_epoch(model, train_loader, optimizer, device, alpha, beta, gamma):
+def train_epoch(model, train_loader, optimizer, device, alpha, beta, gamma, delta):
     model.train()
     total_loss = 0
-    loss_components = {'recon': 0, 'kld': 0, 'abundance': 0}
+    loss_components = {'recon': 0, 'kld': 0, 'group': 0, 'categorical': 0}
 
     for batch in train_loader:
         spectra = batch['spectrum'].to(device)
         abundances_true = batch['abundance'].to(device)
 
-        recon_spectra, abundances_pred, mu, log_var = model(spectra)
+        recon_spectra, abundances_pred, mu, log_var, group_info = model(spectra)
 
         loss, loss_dict = vae_loss(recon_spectra, spectra, abundances_pred, abundances_true,
-                                   mu, log_var, alpha=alpha, beta=beta, gamma=gamma)
+                                   mu, log_var, group_info, alpha, beta, gamma, delta)
 
         optimizer.zero_grad()
         loss.backward()
@@ -95,20 +115,20 @@ def train_epoch(model, train_loader, optimizer, device, alpha, beta, gamma):
     return avg_loss, loss_components
 
 
-def validate_epoch(model, val_loader, device, alpha=1.0, beta=1.0, gamma=1.0):
+def validate_epoch(model, val_loader, device, alpha, beta, gamma, delta):
     model.eval()
     total_loss = 0
-    loss_components = { 'recon': 0, 'kld': 0, 'abundance': 0}
+    loss_components = {'recon': 0, 'kld': 0, 'group': 0, 'categorical': 0}
 
     with torch.no_grad():
         for batch in val_loader:
             spectra = batch['spectrum'].to(device)
             abundances_true = batch['abundance'].to(device)
 
-            recon_spectra, abundances_pred, mu, log_var = model(spectra)
+            recon_spectra, abundances_pred, mu, log_var, group_info = model(spectra)
 
             _, loss_dict = vae_loss(recon_spectra, spectra, abundances_pred, abundances_true,
-                                       mu, log_var, alpha=alpha, beta=beta, gamma=gamma)
+                                       mu, log_var, group_info, alpha, beta, gamma, delta)
 
             batch_size = len(spectra)
             total_loss += loss_dict['total'] * batch_size
@@ -146,7 +166,7 @@ def evaluate_model(model, test_loader, device, material_names):
             spectra = batch['spectrum'].to(device)
             abundances_true = batch['abundance'].to(device)
 
-            recon_spectra, abundances_pred, _, _ = model(spectra)
+            recon_spectra, abundances_pred, _, _, _ = model(spectra, hard=True)
 
             all_spectra_true.append(spectra.cpu().numpy())
             all_spectra_pred.append(recon_spectra.cpu().numpy())
@@ -160,8 +180,10 @@ def evaluate_model(model, test_loader, device, material_names):
 
     results = {
         'abundance_mae': mean_absolute_error(abundances_true, abundances_pred),
+        'abundance_mse': mean_squared_error(abundances_true, abundances_pred),
         'abundance_rmse': np.sqrt(mean_squared_error(abundances_true, abundances_pred)),
 
+        'spectral_mae': mean_absolute_error(spectra_true, spectra_pred),
         'spectral_mse': mean_squared_error(spectra_true, spectra_pred),
         'spectral_rmse': np.sqrt(mean_squared_error(spectra_true, spectra_pred)),
 
@@ -171,6 +193,7 @@ def evaluate_model(model, test_loader, device, material_names):
     for i, material in enumerate(material_names):
         results['per_material'][material] = {
             'mae': mean_absolute_error(abundances_true[:, i], abundances_pred[:, i]),
+            'mse': mean_squared_error(abundances_true[:, i], abundances_pred[:, i]),
             'rmse': np.sqrt(mean_squared_error(abundances_true[:, i], abundances_pred[:, i])),
         }
 
@@ -192,45 +215,60 @@ def evaluate_model(model, test_loader, device, material_names):
 # Plotting Functions
 
 def plot_training_history(history, save_path):
-    _, axes = plt.subplots(2, 2, figsize=(14, 10))
+    fig = plt.figure(figsize=(14, 12))
+    gs = fig.add_gridspec(3, 2, height_ratios=[1, 1, 1])
 
     epochs = range(1, len(history['train_loss']) + 1)
 
     # total loss
-    axes[0, 0].plot(epochs, history['train_loss'], label='Train', linewidth=2)
-    axes[0, 0].plot(epochs, history['val_loss'], label='Validation', linewidth=2)
-    axes[0, 0].set_xlabel('Epoch')
-    axes[0, 0].set_ylabel('Total Loss')
-    axes[0, 0].set_title('Total Loss')
-    axes[0, 0].legend()
-    axes[0, 0].grid(True, alpha=0.3)
+    ax_total = fig.add_subplot(gs[0, :])
+    ax_total.plot(epochs, history['train_loss'], label='Train', linewidth=2)
+    ax_total.plot(epochs, history['val_loss'], label='Validation', linewidth=2)
+    ax_total.set_xlabel('Epoch')
+    ax_total.set_ylabel('Total Loss')
+    ax_total.set_title('Total Loss')
+    ax_total.legend()
+    ax_total.grid(True, alpha=0.3)
 
     # reconstruction loss
-    axes[0, 1].plot(epochs, history['train_recon'], label='Train', linewidth=2)
-    axes[0, 1].plot(epochs, history['val_recon'], label='Validation', linewidth=2)
-    axes[0, 1].set_xlabel('Epoch')
-    axes[0, 1].set_ylabel('Reconstruction Loss')
-    axes[0, 1].set_title('Spectral Reconstruction Loss')
-    axes[0, 1].legend()
-    axes[0, 1].grid(True, alpha=0.3)
+    ax_recon = fig.add_subplot(gs[1, 0])
+    ax_recon.plot(epochs, history['train_recon'], label='Train', linewidth=2)
+    ax_recon.plot(epochs, history['val_recon'], label='Validation', linewidth=2)
+    ax_recon.set_xlabel('Epoch')
+    ax_recon.set_ylabel('Reconstruction Loss')
+    ax_recon.set_title('Spectral Reconstruction Loss')
+    ax_recon.legend()
+    ax_recon.grid(True, alpha=0.3)
 
     # KL Divergence
-    axes[1, 0].plot(epochs, history['train_kld'], label='Train', linewidth=2)
-    axes[1, 0].plot(epochs, history['val_kld'], label='Validation', linewidth=2)
-    axes[1, 0].set_xlabel('Epoch')
-    axes[1, 0].set_ylabel('KL Divergence')
-    axes[1, 0].set_title('KL Divergence')
-    axes[1, 0].legend()
-    axes[1, 0].grid(True, alpha=0.3)
+    ax_kld = fig.add_subplot(gs[1, 1])
+    ax_kld.plot(epochs, history['train_kld'], label='Train', linewidth=2)
+    ax_kld.plot(epochs, history['val_kld'], label='Validation', linewidth=2)
+    ax_kld.set_xlabel('Epoch')
+    ax_kld.set_ylabel('KL Divergence')
+    ax_kld.set_title('KL Divergence')
+    ax_kld.legend()
+    ax_kld.grid(True, alpha=0.3)
 
-    # abundance loss
-    axes[1, 1].plot(epochs, history['train_abundance'], label='Train', linewidth=2)
-    axes[1, 1].plot(epochs, history['val_abundance'], label='Validation', linewidth=2)
-    axes[1, 1].set_xlabel('Epoch')
-    axes[1, 1].set_ylabel('Abundance Loss')
-    axes[1, 1].set_title('Abundance Supervision Loss')
-    axes[1, 1].legend()
-    axes[1, 1].grid(True, alpha=0.3)
+    # group loss
+    ax_group = fig.add_subplot(gs[2, 0])
+    ax_group.plot(epochs, history['train_group'], label='Train', linewidth=2)
+    ax_group.plot(epochs, history['val_group'], label='Validation', linewidth=2)
+    ax_group.set_xlabel('Epoch')
+    ax_group.set_ylabel('Group Loss')
+    ax_group.set_title('Group Supervision Loss')
+    ax_group.legend()
+    ax_group.grid(True, alpha=0.3)
+
+    # categorical loss
+    ax_cat = fig.add_subplot(gs[2, 1])
+    ax_cat.plot(epochs, history['train_categorical'], label='Train', linewidth=2)
+    ax_cat.plot(epochs, history['val_categorical'], label='Validation', linewidth=2)
+    ax_cat.set_xlabel('Epoch')
+    ax_cat.set_ylabel('Categorical Loss')
+    ax_cat.set_title('Categorical Supervision Loss')
+    ax_cat.legend()
+    ax_cat.grid(True, alpha=0.3)
 
     plt.tight_layout()
     plt.savefig(save_path, dpi=300, bbox_inches='tight')
@@ -326,11 +364,13 @@ def plot_test_results(results, material_names, wavelengths, save_dir):
 # Training Pipeline
 
 def train(train_spectra, train_abundances, val_spectra, val_abundances, test_spectra, test_abundances, 
-          endmembers, latent_dim, batch_size, epochs, lr, alpha, beta, gamma, 
+          endmembers, batch_size, epochs, lr, alpha, beta, gamma, delta,
           patience=20, seed=42, results_dir=None, device=None):
-    print(f"Alpha: {alpha}, Beta: {beta}, Gamma: {gamma}")
+
     torch.manual_seed(seed)
     np.random.seed(seed)
+
+    print(f"α: {alpha}, β: {beta}, γ: {gamma}, δ: {delta}")
 
     if device is None:
         device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -355,9 +395,7 @@ def train(train_spectra, train_abundances, val_spectra, val_abundances, test_spe
     print(f"Endmembers: {endmember_matrix.shape}")
     print(f"Wavelengths: {len(wavelengths)}")
 
-    model = PhysicsConstrainedVAE(endmember_spectra=endmember_matrix, input_dim=len(wavelengths),
-                                  latent_dim=latent_dim, n_materials=len(material_names)
-                                  ).to(device)
+    model = PhysicsConstrainedVAE(endmember_spectra=endmember_matrix, input_dim=len(wavelengths)).to(device)
 
     total_params = sum(p.numel() for p in model.parameters())
     trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
@@ -365,11 +403,12 @@ def train(train_spectra, train_abundances, val_spectra, val_abundances, test_spe
     print(f"Trainable parameters: {trainable_params:,}")
 
     optimizer = optim.Adam(model.parameters(), lr=lr)
-    scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=patience)
+    scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', 
+                                                     factor=0.5, patience=patience//2)
 
     history = {
-        'train_loss': [], 'train_recon': [], 'train_kld': [], 'train_abundance': [],
-        'val_loss': [], 'val_recon': [], 'val_kld': [], 'val_abundance': []
+        'train_loss': [], 'train_recon': [], 'train_kld': [], 'train_group': [], 'train_categorical': [],
+        'val_loss': [], 'val_recon': [], 'val_kld': [], 'val_group': [], 'val_categorical': []
     }
 
     best_val_loss = float('inf')
@@ -378,27 +417,31 @@ def train(train_spectra, train_abundances, val_spectra, val_abundances, test_spe
 
     for epoch in range(epochs):
         train_loss, train_components = train_epoch(model, train_loader, optimizer, device, 
-                                                   alpha, beta, gamma)
+                                                   alpha, beta, gamma, delta)
 
         val_loss, val_components = validate_epoch(model, val_loader, device, 
-                                                  alpha, beta, gamma)
+                                                  alpha, beta, gamma, delta)
 
         history['train_loss'].append(train_loss)
         history['train_recon'].append(train_components['recon'])
         history['train_kld'].append(train_components['kld'])
-        history['train_abundance'].append(train_components['abundance'])
+        history['train_group'].append(train_components['group'])
+        history['train_categorical'].append(train_components['categorical'])
         history['val_loss'].append(val_loss)
         history['val_recon'].append(val_components['recon'])
         history['val_kld'].append(val_components['kld'])
-        history['val_abundance'].append(val_components['abundance'])
+        history['val_group'].append(val_components['group'])
+        history['val_categorical'].append(val_components['categorical'])
 
         print(f"Epoch {epoch+1}/{epochs}")
         print(f"Training => "
               f"Total Loss: {train_loss:.4f}, Reconstruction Loss: {train_components['recon']:.4f}, "
-              f"KLD Loss: {train_components['kld']:.4f}, Abundance Loss: {train_components['abundance']:.4f}")
+              f"KLD Loss: {train_components['kld']:.4f}, Group Loss: {train_components['group']:.4f}, "
+              f"Categorical Loss: {train_components['categorical']:.4f}")
         print(f"Validation => "
               f"Total Loss {val_loss:.4f}, Reconstruction Loss: {val_components['recon']:.4f}, "
-              f"KLD Loss: {val_components['kld']:.4f}, Abundance Loss: {val_components['abundance']:.4f}")
+              f"KLD Loss: {val_components['kld']:.4f}, Group Loss: {val_components['group']:.4f}, "
+              f"Categorical Loss: {val_components['categorical']:.4f}")
 
         scheduler.step(val_loss)
 
@@ -458,16 +501,14 @@ if __name__ == "__main__":
     parser.add_argument('--test-abundances', default='data/synthetic_dataset_splits/test_abundances.csv')
     parser.add_argument('--endmembers', default='data/endmember_library_clipped.csv')
 
-    # model params
-    parser.add_argument('--latent-dim', type=int, default=32)
-
     # training params
     parser.add_argument('--batch-size', type=int, default=32)
     parser.add_argument('--epochs', type=int, default=200)
     parser.add_argument('--lr', type=float, default=1e-3)
     parser.add_argument('--alpha', type=float, default=1.0, help='recon loss weight')
-    parser.add_argument('--beta', type=float, default=1.0, help='kld loss weight')
-    parser.add_argument('--gamma', type=float, default=1.0, help='abundance loss weight')
+    parser.add_argument('--beta', type=float, default=0.1, help='kld loss weight')
+    parser.add_argument('--gamma', type=float, default=1.0, help='group loss weight')
+    parser.add_argument('--delta', type=float, default=1.0, help='categorical loss weight')
     parser.add_argument('--patience', type=int, default=20, help='early stopping patience')
     parser.add_argument('--seed', type=int, default=42)
 
@@ -476,7 +517,7 @@ if __name__ == "__main__":
     results = train(train_spectra=args.train_spectra, train_abundances=args.train_abundances,
                     val_spectra=args.val_spectra, val_abundances=args.val_abundances,
                     test_spectra=args.test_spectra, test_abundances=args.test_abundances,
-                    endmembers=args.endmembers, latent_dim=args.latent_dim,
-                    batch_size=args.batch_size, epochs=args.epochs, lr=args.lr,
-                    alpha=args.alpha, beta=args.beta, gamma=args.gamma,
+                    endmembers=args.endmembers, batch_size=args.batch_size, 
+                    epochs=args.epochs, lr=args.lr,
+                    alpha=args.alpha, beta=args.beta, gamma=args.gamma, delta=args.delta,
                     patience=args.patience, seed=args.seed)

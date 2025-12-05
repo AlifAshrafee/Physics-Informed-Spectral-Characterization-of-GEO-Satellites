@@ -13,10 +13,10 @@ def load_best_params(best_params_file='results/best_params.json'):
         print(f"Warning: optimal hyperparameters file not found! Using default hyperparameters.")
         best_params = {
             'alpha': 1.0,
-            'beta': 1.0,
+            'beta': 0.1,
             'gamma': 1.0,
-            'lr': 1e-3,
-            'latent_dim': 32
+            'delta': 1.0,
+            'lr': 1e-3
         }
 
     return best_params
@@ -37,16 +37,14 @@ if __name__ == "__main__":
     parser.add_argument('--endmembers', default='data/endmember_library_clipped.csv')
     parser.add_argument('--results-dir', default='results/vae')
 
-    # model params
-    parser.add_argument('--latent-dim', type=int, default=best_params['latent_dim'])
-
     # training params
     parser.add_argument('--batch-size', type=int, default=32)
     parser.add_argument('--epochs', type=int, default=200)
     parser.add_argument('--lr', type=float, default=best_params['lr'])
     parser.add_argument('--alpha', type=float, default=best_params['alpha'], help='recon loss weight')
     parser.add_argument('--beta', type=float, default=best_params['beta'], help='kld loss weight')
-    parser.add_argument('--gamma', type=float, default=best_params['gamma'], help='abundance loss weight')
+    parser.add_argument('--gamma', type=float, default=best_params['gamma'], help='group loss weight')
+    parser.add_argument('--delta', type=float, default=best_params['delta'], help='categorical loss weight')
     parser.add_argument('--patience', type=int, default=20, help='early stopping patience')
     parser.add_argument('--seed', type=int, default=42)
 
@@ -55,7 +53,7 @@ if __name__ == "__main__":
     results = train(train_spectra=args.train_spectra, train_abundances=args.train_abundances,
                     val_spectra=args.val_spectra, val_abundances=args.val_abundances,
                     test_spectra=args.test_spectra, test_abundances=args.test_abundances,
-                    endmembers=args.endmembers, latent_dim=args.latent_dim,
-                    batch_size=args.batch_size, epochs=args.epochs, lr=args.lr,
-                    alpha=args.alpha, beta=args.beta, gamma=args.gamma,
+                    endmembers=args.endmembers, batch_size=args.batch_size, 
+                    epochs=args.epochs, lr=args.lr,
+                    alpha=args.alpha, beta=args.beta, gamma=args.gamma, delta=args.delta,
                     patience=args.patience, seed=args.seed, results_dir=args.results_dir)

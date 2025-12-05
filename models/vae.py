@@ -7,9 +7,11 @@ import numpy as np
 class Encoder(nn.Module):
     """
     Encoder network: spectrum → MLP → latent distribution (μ_z, log_σ_z)
+    8-dimensional latent space with physical interpretation
     """
-    def __init__(self, input_dim, latent_dim, hidden_dims=[256, 128]):
-        super(Encoder, self).__init__()
+    def __init__(self, input_dim, latent_dim=8, hidden_dims=[256, 128]):
+        super().__init__()
+    
         layers = []
         prev_dim = input_dim
 
@@ -32,31 +34,48 @@ class Encoder(nn.Module):
         return mu, log_var
 
 
-class AbundanceDecoder(nn.Module):
+class LatentToAbundance(nn.Module):
     """
-    Abundance decoder network: z → MLP → logits → softmax → abundances
+    Converts 8-dimensional interpretable latent space to 6-dimensional abundances
+    Latent structure:
+        z[0:3] = group fraction logits → softmax → [solar_frac, mli_frac, white_frac]
+        z[3:6] = MLI selection logits → softmax → [p(blackmli), p(kapton), p(dunmore)]
+        z[6:8] = white selection logits → softmax → [p(thermalbrightn), p(kaptonws)]
     """
-    def __init__(self, latent_dim, n_materials, hidden_dims=[128, 64]):
-        super(AbundanceDecoder, self).__init__()
-        layers = []
-        prev_dim = latent_dim
+    def __init__(self, temperature=1.0):
+        super().__init__()
+        self.temperature = temperature
 
-        for hidden_dim in hidden_dims:
-            layers.append(nn.Linear(prev_dim, hidden_dim))
-            layers.append(nn.ReLU())
-            layers.append(nn.BatchNorm1d(hidden_dim))
-            layers.append(nn.Dropout(0.2))
-            prev_dim = hidden_dim
+    def forward(self, z, hard=False):
+        group_logits = z[:, 0:3]  # group [solar, mli, white] fractions
+        mli_logits = z[:, 3:6]  # MLI material
+        white_logits = z[:, 6:8]  # white material
 
-        self.decoder = nn.Sequential(*layers)
+        group_fracs = F.softmax(group_logits, dim=1)
 
-        self.fc_out = nn.Linear(hidden_dims[-1], n_materials)
+        if hard:  # discrete one-hot selection for inference
+            mli_probs = F.gumbel_softmax(mli_logits, tau=self.temperature, hard=hard)
+            white_probs = F.gumbel_softmax(white_logits, tau=self.temperature, hard=hard)
+        else:  # soft differentiable selection for training
+            mli_probs = F.softmax(mli_logits / self.temperature, dim=1)
+            white_probs = F.softmax(white_logits / self.temperature, dim=1)
 
-    def forward(self, z):
-        h = self.decoder(z)
-        logits = self.fc_out(h)
-        abundances = F.softmax(logits, dim=1)  # ensures sum-to-one constraint
-        return abundances
+        # final abundances
+        abundances = torch.cat([
+            group_fracs[:, 0:1],  # solar cell
+            group_fracs[:, 1:2] * mli_probs,  # MLI materials
+            group_fracs[:, 2:3] * white_probs,  # white materials
+        ], dim=1)
+
+        group_info = {
+            'group_fracs': group_fracs,
+            'mli_logits': mli_logits,
+            'mli_probs': mli_probs,
+            'white_logits': white_logits,
+            'white_probs': white_probs
+        }
+
+        return abundances, group_info
 
 
 class PhysicsDecoder(nn.Module):
@@ -67,7 +86,7 @@ class PhysicsDecoder(nn.Module):
     where: a_i = abundance of material i, s_i(λ) = spectral signature of material i at wavelength λ
     """
     def __init__(self, endmember_spectra):
-        super(PhysicsDecoder, self).__init__()
+        super().__init__()
 
         if isinstance(endmember_spectra, np.ndarray):
             endmember_spectra = torch.from_numpy(endmember_spectra).float()
@@ -84,53 +103,64 @@ class PhysicsDecoder(nn.Module):
 
 class PhysicsConstrainedVAE(nn.Module):
     """
-    Encoder: spectrum → (μ_z, log_σ_z) -> Reparameterization: z ~ N(μ, σ²) -> 
-    Abundance Decoder: z → abundances -> Physics Decoder: abundances → reconstructed spectrum
+    Encoder: spectrum (501) → latent (μ_z, log_σ_z) ∈ ℝ⁸ -> Reparameterization: z ~ N(μ, σ²) -> 
+    LatentToAbundance: z (8) → abundances (6) -> Physics Decoder: abundances (6) → reconstructed spectrum (501)
     """
-    def __init__(self, endmember_spectra, input_dim, latent_dim, n_materials,
-                 encoder_hidden=[256, 128], decoder_hidden=[128, 64]):
-        super(PhysicsConstrainedVAE, self).__init__()
+    def __init__(self, endmember_spectra, input_dim, latent_dim=8, 
+                 temperature=1.0, encoder_hidden=[256, 128]):
+        super().__init__()
+        assert latent_dim == 8, (f"Latent dim must be 8 for hierarchical structure: "
+                                 f"3 (group) + 3 (MLI) + 2 (white), got {latent_dim}")
+
         self.latent_dim = latent_dim
         self.encoder = Encoder(input_dim, latent_dim, encoder_hidden)
-        self.abundance_decoder = AbundanceDecoder(latent_dim, n_materials, decoder_hidden)
+        self.latent_to_abundance = LatentToAbundance(temperature)
         self.physics_decoder = PhysicsDecoder(endmember_spectra)
 
     def reparameterize(self, mu, log_var):
         """
-        Reparameterization trick: z = μ + σ ⊙ ε, where ε ~ N(0, 1)
+        Reparameterization trick: z = μ + σ ⊙ ε, where ε ~ N(0, I)
         """
         std = torch.exp(0.5 * log_var)
         eps = torch.randn_like(std)
         z = mu + std * eps
         return z
 
-    def forward(self, x):
+    def forward(self, x, hard=False):
         mu, log_var = self.encoder(x)
         z = self.reparameterize(mu, log_var)
-        abundances = self.abundance_decoder(z)
+        abundances, group_info = self.latent_to_abundance(z, hard=hard)
         recon_spectrum = self.physics_decoder(abundances)
 
-        return recon_spectrum, abundances, mu, log_var
+        return recon_spectrum, abundances, mu, log_var, group_info
 
 
 if __name__ == "__main__":
     # dummy data
     batch_size = 32
     n_bands = 501
-    latent_dim = 32
+    latent_dim = 8
     n_materials = 6
+
     endmembers = np.random.rand(n_bands, n_materials).astype(np.float32)
     x = torch.randn(batch_size, n_bands)
-    abundances_true = torch.randn(batch_size, n_materials).softmax(dim=1)
 
-    model = PhysicsConstrainedVAE(endmembers, n_bands, latent_dim, n_materials, 
-                                  encoder_hidden=[256, 128], decoder_hidden=[128, 64])
+    model = PhysicsConstrainedVAE(endmembers, n_bands, latent_dim, 
+                                  temperature=1.0, encoder_hidden=[256, 128])
 
-    recon_spectrum, abundances_pred, mu, log_var = model(x)  # forward pass
+    recon_spectrum, abundances_pred, mu, log_var, group_info = model(x)  # forward pass
 
     print(f"Input shape: {x.shape}")
-    print(f"Reconstructed spectrum shape: {recon_spectrum.shape}")
-    print(f"Predicted abundances shape: {abundances_pred.shape}")
-    print(f"Abundances sum: {abundances_pred.sum(dim=1).mean():.3f}")
-    print(f"Latent mean shape: {mu.shape}")
+    print(f"Latent mean shape: {mu.shape} (8 = 3 group + 3 MLI + 2 white)")
     print(f"Latent log_var shape: {log_var.shape}")
+    print(f"Predicted abundances shape: {abundances_pred.shape}")
+    print(f"Reconstructed spectrum shape: {recon_spectrum.shape}")
+    print(f"Abundances sum: {abundances_pred.sum(dim=1).mean():.3f}")
+    print(f"Group fractions sum: {group_info['group_fracs'].sum(dim=1).mean():.3f}")
+    print(f"MLI probs sum: {group_info['mli_probs'].sum(dim=1).mean():.3f}")
+    print(f"White probs sum: {group_info['white_probs'].sum(dim=1).mean():.3f}")
+
+    total_params = sum(p.numel() for p in model.parameters())
+    encoder_params = sum(p.numel() for p in model.encoder.parameters())
+    print(f"Total parameters: {total_params:,}")
+    print(f"Encoder parameters: {encoder_params:,}")
