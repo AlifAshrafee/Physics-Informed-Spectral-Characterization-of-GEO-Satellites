@@ -146,7 +146,7 @@ def evaluate_model(model, test_loader, device, material_names):
             spectra = batch['spectrum'].to(device)
             abundances_true = batch['abundance'].to(device)
 
-            recon_spectra, abundances_pred, _, _ = model(spectra)
+            recon_spectra, abundances_pred, _, _ = model(spectra, hard=True)
 
             all_spectra_true.append(spectra.cpu().numpy())
             all_spectra_pred.append(recon_spectra.cpu().numpy())
@@ -356,8 +356,7 @@ def train(train_spectra, train_abundances, val_spectra, val_abundances, test_spe
     print(f"Wavelengths: {len(wavelengths)}")
 
     model = PhysicsConstrainedVAE(endmember_spectra=endmember_matrix, input_dim=len(wavelengths),
-                                  latent_dim=latent_dim, n_materials=len(material_names)
-                                  ).to(device)
+                                  latent_dim=latent_dim).to(device)
 
     total_params = sum(p.numel() for p in model.parameters())
     trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
